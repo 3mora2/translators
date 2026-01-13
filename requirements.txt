@@ -6,5 +6,6 @@ pathos
 requests
 niquests
 aiohttp
-cloudscraper
+ai-cloudscraper
 cryptography
+psutil

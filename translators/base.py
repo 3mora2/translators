@@ -1,15 +1,16 @@
+import functools
+import random
 import sys
 import time
-import random
-import warnings
-import functools
 import urllib.parse
+import warnings
 from typing import Optional, Union, Tuple
-import httpx
-import requests
-import niquests
-import cloudscraper
+
 import aiohttp
+import cloudscraper
+import httpx
+import niquests
+import requests
 
 LangMapKwargsType = Union[str, bool]
 ApiKwargsType = Union[str, int, float, bool, dict]
@@ -36,6 +37,7 @@ class Tse:
         self.auto_pool = ('auto', 'detect', 'auto-detect', 'all')
         self.zh_pool = ('zh', 'zh-CN', 'zh-cn', 'zh-CHS', 'zh-Hans', 'zh-Hans_CN', 'cn', 'chi', 'Chinese')
         self.session: Optional[SessionType] = None
+        self.async_session = None
 
     @staticmethod
     def time_stat(func):
@@ -236,6 +238,7 @@ class Tse:
                     warnings.warn(f'GetLanguageMapError: {str(e)}.\nThe function make_temp_language_map() works.')
                 return make_temp_language_map(kwargs.get('from_language'), kwargs.get('to_language'),
                                               kwargs.get('default_from_language'))
+
         return _wrapper
 
     @staticmethod
@@ -304,7 +307,6 @@ class Tse:
                     warnings.warn(f'The length of `query_text` is {qt_length}, above {limit_of_length}.')
                     return query_text[:limit_of_length]
             return query_text
-
 
         @functools.wraps(func)
         async def _wrapper(*args, **kwargs):
@@ -393,4 +395,3 @@ class Tse:
         # TODO: Add proxies
         session = aiohttp.ClientSession()
         return session
-

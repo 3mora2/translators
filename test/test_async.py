@@ -30,7 +30,8 @@ async def test2(tans):
     print(async_text)
 
 
-asyncio.run(test2("lingvanex"))
+asyncio.run(test())
+# asyncio.run(test2("lingvanex"))
 # baidu, deepl, iciba, judic, reverso
 # deepl work fine with aiohttp, not sync
 
